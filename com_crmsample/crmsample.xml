@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+    <name>CRM Sample</name>
+    <author>Aleks</author>
+    <creationDate>2026-02-17</creationDate>
+    <copyright>(C) 2026. All rights reserved.</copyright>
+    <license>GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (AGPL-3.0 license)</license>
+    <authorUrl>https://github.com/aleks-jgn</authorUrl>
+    <version>1.0.0</version>
+    <description>CRM SAMPLE component for Joomla 6.x</description>
+
+    <namespace path="src">CrmSample\Component\Crmsample</namespace>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <administration>
+        <menu img="class:crm">CRM Sample</menu>
+        <submenu>
+            <menu link="option=com_crmsample" view="companies" img="class:user">Companies</menu>
+        </submenu>
+        <files folder="admin">
+            <folder>forms</folder>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+        <languages folder="language">
+            <language tag="en-GB">en-GB/en-GB.com_crmsample.ini</language>
+            <language tag="ru-RU">ru-RU/ru-RU.com_crmsample.ini</language>
+        </languages>
+    </administration>
+
+    <files folder="site">
+        <folder>src</folder>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.com_crmsample.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.com_crmsample.ini</language>
+    </languages>
+</extension>
