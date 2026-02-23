@@ -15,6 +15,7 @@ class HtmlView extends BaseHtmlView
     protected $events;
     protected $availableActions;
 
+    /*
     public function display($tpl = null)
     {
         $this->item  = $this->get('Item');
@@ -35,6 +36,46 @@ class HtmlView extends BaseHtmlView
             }
         } else {
             $this->events = [];
+        }
+
+        $this->addToolbar();
+        parent::display($tpl);
+    }
+    */
+
+    public function display($tpl = null)
+    {
+        $this->item  = $this->get('Item');
+        $this->form  = $this->get('Form');
+        $model = $this->getModel();
+
+        // Определяем текущую стадию (для новой компании – 'Ice')
+        $stage = $this->item->current_stage ?? 'Ice';
+        $this->availableActions = $model->getAvailableActions($stage);
+
+        // Загрузка событий
+        /*
+        $this->events = [];
+        if ($this->item->id) {
+            $eventModel = $this->getModel('Event', 'Administrator');
+            if ($eventModel !== null) {
+                // Устанавливаем фильтр напрямую и получаем элементы
+                $eventModel->setState('filter.company_id', $this->item->id);
+                $this->events = $eventModel->getItems();
+            }
+        }
+        */
+        // Загрузка событий через прямой SQL-запрос
+        $this->events = [];
+        if ($this->item->id) {
+            $db = Factory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('*')
+                ->from($db->quoteName('#__crmsample_events'))
+                ->where($db->quoteName('company_id') . ' = ' . (int) $this->item->id)
+                ->order('created DESC');
+            $db->setQuery($query);
+            $this->events = $db->loadObjectList();
         }
 
         $this->addToolbar();
