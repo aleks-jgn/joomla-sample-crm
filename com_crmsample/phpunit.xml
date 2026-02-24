@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+    <!-- для константы JPATH_BASE -->
+    <!-- <php>
+        <const name="JPATH_BASE" value="/путь/к/joomla" />
+    </php> -->
+</phpunit>
